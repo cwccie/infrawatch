@@ -1,0 +1,90 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "infrawatch"
+version = "0.1.0"
+description = "Production anomaly detection for infrastructure metrics using time series foundation models"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+authors = [
+    {name = "Corey A. Wade", email = "corey@coreywade.com"},
+]
+keywords = ["anomaly-detection", "infrastructure", "monitoring", "time-series", "foundation-models"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: System Administrators",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: System :: Monitoring",
+    "Topic :: System :: Networking :: Monitoring",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+dependencies = [
+    "numpy>=1.24",
+    "scipy>=1.10",
+    "flask>=3.0",
+    "click>=8.1",
+    "requests>=2.31",
+    "pyyaml>=6.0",
+    "jinja2>=3.1",
+]
+
+[project.optional-dependencies]
+ml = [
+    "scikit-learn>=1.3",
+]
+foundation = [
+    "torch>=2.0",
+    "chronos-forecasting>=1.0",
+]
+snmp = [
+    "pysnmp>=4.4",
+]
+full = [
+    "scikit-learn>=1.3",
+    "pysnmp>=4.4",
+]
+dev = [
+    "pytest>=7.4",
+    "pytest-cov>=4.1",
+    "ruff>=0.1",
+    "mypy>=1.5",
+]
+
+[project.scripts]
+infrawatch = "infrawatch.cli:cli"
+
+[project.urls]
+Homepage = "https://github.com/cwccie/infrawatch"
+Repository = "https://github.com/cwccie/infrawatch"
+Issues = "https://github.com/cwccie/infrawatch/issues"
+Documentation = "https://github.com/cwccie/infrawatch#readme"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-v --tb=short"
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP"]
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
